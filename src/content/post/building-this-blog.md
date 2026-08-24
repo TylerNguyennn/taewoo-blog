@@ -2,7 +2,6 @@
 title: "Building this blog took longer than it should have"
 publishDate: 2026-08-24
 description: "Domain, name, template, DNS — the small decisions that ate the time on a 'simple' blog setup."
-draft: true
 tags: [meta, blogging]
 ---
 
