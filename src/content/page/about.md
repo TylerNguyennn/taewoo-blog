@@ -1,14 +1,20 @@
 ---
 title: About
-description: A short introduction. Replace this in src/content/page/about.md.
+
+description: Backend engineer learning to keep AI honest in payment infrastructure.
 ---
 
-This is the About page. It's a markdown file at `src/content/page/about.md` — edit it freely. The shape is intentionally unstructured so you can write a paragraph, a list, a CV, or whatever fits.
+I work on backend systems — mostly payment infrastructure. Integrating with PSPs,
+handling virtual accounts, reconciliation, and the kind of details where one mistake
+means real money actually disappears.
 
-A few example bullets to get going:
+I'm not an industry expert, and I'm not selling a course. This is where I write down
+what actually happens — what I understand, what I don't, and the parts I still check
+by hand even when AI sounds completely sure of itself.
 
-- 👋 One-line intro — what you do, where, since when.
-- 🛠 The tools you reach for first.
-- 📝 What you tend to write about here.
+- 🔧 Real problems from PSP integration — HMAC signing, permission bugs vs signature
+  bugs, idempotency.
+- 🤖 How I work with AI in high-stakes code — where I trust it, where I never do.
+- 📖 Occasionally something that has nothing to do with payments at all.
 
-Find me on [GitHub](https://github.com/example), [LinkedIn](https://www.linkedin.com/in/example/), or by [email](mailto:john@example.com).
+Find me on [GitHub](https://github.com/TylerNguyennn), [LinkedIn](https://www.linkedin.com/in/tainh-fit/), or by [email](mailto:tainh.work@gmail.com).

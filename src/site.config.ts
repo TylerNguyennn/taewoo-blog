@@ -2,7 +2,7 @@ import type { SiteConfig } from "@/types";
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 
 export const siteConfig: SiteConfig = {
-	author: "Your Name",
+	author: "Tae Woo",
 	date: {
 		locale: "en-US",
 		options: {
@@ -12,21 +12,18 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	description:
-		"A minimal personal blog & writing space, built with Astro. Notes on whatever I happen to be thinking about — usually some mix of code, design, and the occasional half-formed idea. Replace this paragraph in src/site.config.ts to make the site your own.",
+	"Notes on payment infrastructure and working with AI in high-stakes code — written by someone who isn't an expert yet, just paying close attention.",
 	lang: "en-US",
 	ogLocale: "en_US",
 	sortPostsByUpdatedDate: false,
-	title: "Astro Sienna",
+	title: "TaeWoo Blog",
 	hideThemeCredit: false,
 	profile: {
-		name: "John Doe",
-		email: "john@example.com",
-		github: "https://github.com/example",
-		linkedin: "https://www.linkedin.com/in/example/",
-		jobTitle: "Software Engineer",
-		employer: "Example Inc.",
-		employerUrl: "https://example.com",
-		alumni: "Example University",
+		name: "TaeWoo",
+		email: "tainh.work@gmail.com",
+		github: "https://github.com/TylerNguyennn",
+		linkedin: "https://www.linkedin.com/in/tainh-fit/",
+		jobTitle: "Backend Engineer",
 		avatar: "/avatar.png",
 	},
 	// Uncomment & fill in to enable Giscus comments on every post.
@@ -52,10 +49,10 @@ export const menuLinks: { path: string; title: string }[] = [
 		path: "/posts/",
 		title: "Posts",
 	},
-	{
-		path: "/showcase/",
-		title: "Showcase",
-	},
+	// {
+	// 	path: "/showcase/",
+	// 	title: "Showcase",
+	// },
 	{
 		path: "/about/",
 		title: "About",
