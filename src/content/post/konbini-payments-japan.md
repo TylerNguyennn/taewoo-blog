@@ -10,9 +10,9 @@ The first time I heard how this works, I thought someone was joking.
 
 You shop online. At checkout, instead of typing in a card number, you pick "pay at a convenience store." You get a code. Then you walk to your nearest 7-Eleven or Lawson, hand over cash, and your order ships.
 
-I work on payment systems for a living, and I still couldn't picture it. So I went to YouTube. [This short guide](https://youtube.com/shorts/sWzEsm81gFI) is the one I watched, and it's worth 30 seconds if you want to see the whole thing in action.
+I work on payment systems for a living, and I still couldn't picture it. So I went to YouTube. [This short guide](https://youtube.com/shorts/nHDVYzUmUA8) is the one I watched, and it's worth 30 seconds if you want to see the whole thing in action.
 
-<iframe src="https://www.youtube-nocookie.com/embed/sWzEsm81gFI" title="How konbini payment works in Japan" style="display: block; width: 100%; max-width: 315px; aspect-ratio: 9 / 16; margin: 1.5rem auto; border: 0;" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/nHDVYzUmUA8" title="How konbini payment works in Japan" style="display: block; width: 100%; max-width: 315px; aspect-ratio: 9 / 16; margin: 1.5rem auto; border: 0;" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
 
 It sounds like a step backwards. It turns out to be one of the smartest payment ideas I've come across.
 
