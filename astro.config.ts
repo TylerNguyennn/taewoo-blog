@@ -77,8 +77,8 @@ export default defineConfig({
 				},
 			],
 			start_url: START_URL,
-			background_color: "#1d1f21",
-			theme_color: "#2bbc8a",
+			background_color: "#f9f5ec",
+			theme_color: "#8a4423",
 			display: "standalone",
 			config: {
 				insertFaviconLinks: false,

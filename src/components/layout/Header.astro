@@ -30,7 +30,16 @@ const navIcons: Record<string, string> = {
 ---
 
 <header class="site-header" id="main-header">
-	<a href={withBase("/")} class="wordmark">{wordmark}</a>
+	<a href={withBase("/")} class="wordmark">
+		{/* T-account mark: debit entries left of the stem, credit right. */}
+		<svg aria-hidden="true" class="wordmark-mark" viewBox="96 96 320 320" fill="currentColor">
+			<rect x="96" y="128" width="320" height="48" />
+			<rect x="232" y="128" width="48" height="256" />
+			<rect x="128" y="224" width="80" height="16" />
+			<rect x="144" y="272" width="64" height="16" />
+			<rect x="304" y="224" width="80" height="16" />
+		</svg>{wordmark}
+	</a>
 	<div class="header-right">
 		<nav class="nav" aria-label="Primary">
 			{
@@ -77,6 +86,14 @@ const navIcons: Record<string, string> = {
 		transition: color 0.2s ease, border-color 0.2s ease;
 	}
 	.wordmark:hover {
+		color: hsl(var(--theme-accent));
+	}
+	.wordmark-mark {
+		display: inline-block;
+		width: 17px;
+		height: 17px;
+		margin-right: 8px;
+		vertical-align: -3px;
 		color: hsl(var(--theme-accent));
 	}
 	.header-right {
