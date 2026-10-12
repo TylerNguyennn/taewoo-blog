@@ -1,10 +1,11 @@
-import { getAllPosts } from "@/data/post";
+import { getAllWriting, postPath } from "@/data/post";
 import { siteConfig } from "@/site-config";
 import { absoluteUrl } from "@/utils/path";
 import rss from "@astrojs/rss";
 
 export const GET = async () => {
-	const posts = await getAllPosts();
+	// Everything: work stories and study notes. /posts/rss.xml and /study/rss.xml carry one kind each.
+	const posts = await getAllWriting();
 
 	return rss({
 		title: siteConfig.title,
@@ -14,7 +15,7 @@ export const GET = async () => {
 			title: post.data.title,
 			description: post.data.description,
 			pubDate: post.data.publishDate,
-			link: `posts/${post.id}/`,
+			link: postPath(post),
 		})),
 	});
 };

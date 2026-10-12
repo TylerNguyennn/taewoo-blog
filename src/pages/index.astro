@@ -1,6 +1,14 @@
 ---
 import PostList from "@/components/blog/PostList.astro";
-import { getAllPosts, getPostSortDate, sortMDByDate } from "@/data/post";
+import WritingFilter from "@/components/blog/WritingFilter.astro";
+import {
+	getAllPosts,
+	getAllWriting,
+	getPostSortDate,
+	getStudyNotesInOrder,
+	postPath,
+	sortMDByDate,
+} from "@/data/post";
 import { showcase } from "@/data/showcase";
 import PageLayout from "@/layouts/Base.astro";
 import { siteConfig } from "@/site-config";
@@ -8,13 +16,15 @@ import { formatRailDate, formatStampDate } from "@/utils/date";
 import { absoluteUrl, withBase } from "@/utils/path";
 import { Schema } from "astro-seo-schema";
 
-const allPosts = await getAllPosts();
-const allPostsByDate = sortMDByDate(allPosts);
+// The featured slot is always the latest work story: the blog is about my own experience first.
+// The list below mixes in Study with me notes, which the chips can filter.
 const TIMELINE_LIMIT = 5;
-const timelinePosts = allPostsByDate.slice(0, TIMELINE_LIMIT);
-const featured = timelinePosts[0];
-const rest = timelinePosts.slice(1);
-const archiveCount = allPosts.length;
+const featured = sortMDByDate(await getAllPosts())[0];
+const allWriting = await getAllWriting();
+const rest = allWriting.filter((p) => !(p.collection === featured?.collection && p.id === featured?.id)).slice(0, TIMELINE_LIMIT - 1);
+const archiveCount = allWriting.length;
+const studyNotes = await getStudyNotesInOrder();
+const latestNotes = studyNotes.map((n, i) => ({ note: n, number: i + 1 })).reverse().slice(0, 3);
 
 const profile = siteConfig.profile;
 const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
@@ -75,10 +85,11 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 
 	<section class="writing" aria-labelledby="writing-label">
 		<div class="section-label" id="writing-label">Writing</div>
+		<WritingFilter />
 		<div class="timeline">
 			{
 				featured && (
-					<div class="post featured" style="--i: 0">
+					<div class="post featured" data-kind="work" style="--i: 0">
 						<div class="post-rail">
 							<time class="post-date" datetime={getPostSortDate(featured).toISOString()}>
 								{formatRailDate(getPostSortDate(featured))}
@@ -114,6 +125,31 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 			</div>
 		</div>
 	</section>
+
+	{latestNotes.length > 0 && (
+		<section class="study" aria-labelledby="study-label">
+			<div class="section-label" id="study-label">Study with me</div>
+			<p class="study-intro">
+				I'm learning how real systems work and why they break. Each note uses everyday pictures and
+				comes with a free, hands-on lesson.
+			</p>
+			<ul class="study-list">
+				{latestNotes.map(({ note, number }) => (
+					<li>
+						<a class="study-title" data-astro-prefetch href={withBase(postPath(note))}>
+							<span class="study-num">Note {number}</span>
+							{note.data.title}
+						</a>
+					</li>
+				))}
+			</ul>
+			<div class="archive-link">
+				<a data-astro-prefetch href={withBase("/study/")}>All study notes →</a>
+				<span class="sep">·</span>
+				<a href="https://learn.taewoo.me/?utm_source=blog&utm_content=home" rel="noopener">Try the lessons →</a>
+			</div>
+		</section>
+	)}
 
 	{showcase.length > 0 && (
 		<section class="work" aria-labelledby="work-label">
@@ -287,6 +323,52 @@ const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
 
 	.work {
 		margin-bottom: 88px;
+	}
+
+	/* ---------- Study with me ---------- */
+	.study {
+		margin-bottom: 88px;
+	}
+	.study-intro {
+		font-size: 16.5px;
+		line-height: 1.6;
+		color: hsl(var(--theme-text-muted));
+		margin: 0 0 18px;
+		max-width: 58ch;
+	}
+	.study-list {
+		list-style: none;
+		margin: 0 0 14px;
+		padding: 0;
+	}
+	.study-list li {
+		margin: 0 0 12px;
+	}
+	.study-title {
+		font-family: var(--font-serif);
+		font-size: 18.5px;
+		line-height: 1.35;
+		color: hsl(var(--theme-text));
+		transition: color 0.2s ease;
+	}
+	.study-title:hover {
+		color: hsl(var(--theme-accent));
+	}
+	.study-num {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 10.5px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: hsl(var(--theme-accent));
+		margin-bottom: 2px;
+	}
+	.study .archive-link {
+		margin-top: 0;
+	}
+	.study .sep {
+		color: var(--faint);
+		margin: 0 9px;
 	}
 
 	.socials a:focus-visible,

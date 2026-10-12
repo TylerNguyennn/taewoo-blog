@@ -470,3 +470,18 @@ ul.work-list a:focus-visible {
 		scroll-behavior: auto !important;
 	}
 }
+
+/* Writing filter: hidden rows (display: contents would otherwise override [hidden]). */
+.timeline > .post[hidden] {
+	display: none;
+}
+/* Small label on Study with me notes in a writing list. */
+.timeline .post-kind {
+	display: block;
+	font-family: var(--font-mono);
+	font-size: 10.5px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: hsl(var(--theme-accent));
+	margin-bottom: 4px;
+}

@@ -1,11 +1,10 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import { getPostSortDate } from "@/data/post";
+import { getPostSortDate, type PostEntry, postKind, postPath } from "@/data/post";
 import { formatRailDate } from "@/utils/date";
 import { withBase } from "@/utils/path";
 
 interface Props {
-	posts: CollectionEntry<"post">[];
+	posts: PostEntry[];
 	/** Seeds the `--i` stagger-animation index (e.g. when rows follow a featured post). */
 	startIndex?: number;
 	/** Heading tag for each post title. */
@@ -21,7 +20,8 @@ const Heading = headingLevel;
 		<a
 			class="post"
 			data-astro-prefetch
-			href={withBase(`/posts/${p.id}/`)}
+			href={withBase(postPath(p))}
+			data-kind={postKind(p)}
 			style={`--i: ${startIndex + idx}`}
 		>
 			<div class="post-rail">
@@ -31,6 +31,7 @@ const Heading = headingLevel;
 				<span class="post-dot" aria-hidden="true" />
 			</div>
 			<div class="post-body">
+				{postKind(p) === "study" && <span class="post-kind">Study with me</span>}
 				<Heading class="post-title">{p.data.title}</Heading>
 				<p class="post-preview">{p.data.description}</p>
 			</div>

@@ -1,0 +1,81 @@
+---
+// Filter chips for a writing list: All · Work stories · Study with me.
+// Hides rows in the next `.timeline` by their data-kind; ?kind=work|study preselects one.
+// Without JavaScript every row stays visible.
+const chips = [
+	{ kind: "all", label: "All" },
+	{ kind: "work", label: "Work stories" },
+	{ kind: "study", label: "Study with me" },
+];
+---
+
+<div class="writing-filter" role="group" aria-label="Show">
+	{
+		chips.map((c) => (
+			<button type="button" data-filter={c.kind} aria-pressed={c.kind === "all" ? "true" : "false"}>
+				{c.label}
+			</button>
+		))
+	}
+</div>
+
+<script>
+	function setUp() {
+		for (const group of document.querySelectorAll<HTMLElement>(".writing-filter")) {
+			const list = group.parentElement?.querySelector<HTMLElement>(".timeline");
+			if (!list || group.dataset.ready) continue;
+			group.dataset.ready = "1";
+			const apply = (kind: string) => {
+				for (const b of group.querySelectorAll<HTMLButtonElement>("button")) {
+					b.setAttribute("aria-pressed", String(b.dataset.filter === kind));
+				}
+				for (const row of list.querySelectorAll<HTMLElement>(":scope > [data-kind]")) {
+					row.hidden = kind !== "all" && row.dataset.kind !== kind;
+				}
+			};
+			group.addEventListener("click", (e) => {
+				const b = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-filter]");
+				if (b?.dataset.filter) apply(b.dataset.filter);
+			});
+			const wanted = new URLSearchParams(location.search).get("kind");
+			if (wanted === "work" || wanted === "study") apply(wanted);
+		}
+	}
+	setUp();
+	document.addEventListener("astro:page-load", setUp);
+</script>
+
+<style>
+	.writing-filter {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: 0 0 28px;
+	}
+	.writing-filter button {
+		font-family: var(--font-sans);
+		font-size: 13px;
+		line-height: 1;
+		padding: 8px 12px;
+		min-height: 34px;
+		border-radius: 999px;
+		border: 1px solid var(--hairline);
+		background: transparent;
+		color: hsl(var(--theme-text-muted));
+		cursor: pointer;
+		transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+	}
+	.writing-filter button:hover {
+		color: hsl(var(--theme-accent));
+		border-color: hsl(var(--theme-accent));
+	}
+	.writing-filter button[aria-pressed="true"] {
+		background: hsl(var(--theme-text));
+		border-color: hsl(var(--theme-text));
+		color: hsl(var(--theme-bg));
+	}
+	.writing-filter button:focus-visible {
+		outline: 2px solid hsl(var(--theme-accent));
+		outline-offset: 2px;
+	}
+</style>

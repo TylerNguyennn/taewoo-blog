@@ -2,7 +2,7 @@ import JetBrainsMono from "@/assets/fonts/jetbrainsmono-regular.ttf";
 import NewsreaderItalic from "@/assets/fonts/newsreader-italic.ttf";
 import NewsreaderRegular from "@/assets/fonts/newsreader-regular.ttf";
 import NewsreaderSemiBold from "@/assets/fonts/newsreader-semibold.ttf";
-import { getAllPosts } from "@/data/post";
+import { getAllPosts, postOgImage } from "@/data/post";
 import { siteConfig } from "@/site-config";
 import { formatBylineDate, formatEyebrowDate } from "@/utils/date";
 import { Resvg } from "@resvg/resvg-js";
@@ -62,7 +62,7 @@ const markup = (props: {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export async function GET(context: APIContext) {
-	const { pubDate, title, tags, readingTime } = context.props as Props;
+	const { pubDate, title, tags, readingTime, section } = context.props as Props;
 
 	const date = new Date(pubDate);
 	const authorName = siteConfig.profile?.name ?? siteConfig.author;
@@ -76,7 +76,7 @@ export async function GET(context: APIContext) {
 
 	const svg = await satori(
 		markup({
-			eyebrow: `Posts${SEP}${formatEyebrowDate(date)}`,
+			eyebrow: `${section}${SEP}${formatEyebrowDate(date)}`,
 			title,
 			byline: bylineParts.join(SEP),
 			tagsLine: tags.join(SEP),
@@ -94,18 +94,18 @@ export async function GET(context: APIContext) {
 }
 
 export async function getStaticPaths() {
-	const posts = await getAllPosts();
+	const posts = [...(await getAllPosts("post")), ...(await getAllPosts("study"))];
 	const filtered = posts.filter(({ data }) => !data.ogImage);
 	const items = await Promise.all(
 		filtered.map(async (post) => {
 			const { remarkPluginFrontmatter } = await render(post);
-			const readingTime =
-				(remarkPluginFrontmatter as { minutesRead?: string })?.minutesRead ?? "";
+			const readingTime = (remarkPluginFrontmatter as { minutesRead?: string })?.minutesRead ?? "";
 			return {
-				params: { slug: post.id },
+				params: { slug: postOgImage(post).replace(/^\/og-image\/|\.png$/g, "") },
 				props: {
 					pubDate: (post.data.updatedDate ?? post.data.publishDate).toISOString(),
 					title: post.data.title,
+					section: post.collection === "study" ? "Study with me" : "Posts",
 					tags: post.data.tags ?? [],
 					readingTime,
 				},

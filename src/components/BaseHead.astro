@@ -75,6 +75,8 @@ const goatcounter = analytics?.goatcounterUrl;
 <link href={withBase("/sitemap-index.xml")} rel="sitemap"/>
 
 <link href={withBase("/rss.xml")} rel="alternate" title={siteConfig.title} type="application/rss+xml"/>
+<link href={withBase("/posts/rss.xml")} rel="alternate" title={`${siteConfig.title} · Work stories`} type="application/rss+xml"/>
+<link href={withBase("/study/rss.xml")} rel="alternate" title={`${siteConfig.title} · Study with me`} type="application/rss+xml"/>
 
 {
     siteConfig.webmentions && (

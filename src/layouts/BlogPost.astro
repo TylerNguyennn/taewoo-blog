@@ -1,10 +1,18 @@
 ---
-import { type CollectionEntry, render } from "astro:content";
+import { render } from "astro:content";
 import { Image } from "astro:assets";
 
 import ShareButtons from "@/components/blog/ShareButtons.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
-import { getAllPosts, getPostSortDate, sortMDByDate } from "@/data/post";
+import {
+	getAllPosts,
+	getPostSortDate,
+	getStudyNotesInOrder,
+	type PostEntry,
+	postOgImage,
+	postPath,
+	sortMDByDate,
+} from "@/data/post";
 import { siteConfig } from "@/site-config";
 import { formatBylineDate, formatEyebrowDate } from "@/utils/date";
 import { absoluteUrl, withBase } from "@/utils/path";
@@ -13,26 +21,28 @@ import BaseLayout from "./Base.astro";
 import { Schema } from "astro-seo-schema";
 
 interface Props {
-	post: CollectionEntry<"post">;
+	post: PostEntry;
 }
 
 const { post } = Astro.props;
 
-const sortedAll = sortMDByDate(await getAllPosts());
+const isStudy = post.collection === "study";
+const noteNumber = isStudy ? (await getStudyNotesInOrder()).findIndex((n) => n.id === post.id) + 1 : 0;
+// Older/Newer links stay within the same section.
+const sortedAll = sortMDByDate(await getAllPosts(post.collection));
 const idx = sortedAll.findIndex((p) => p.id === post.id);
 const newerPost = idx > 0 ? sortedAll[idx - 1] : undefined;
 const olderPost = idx >= 0 && idx < sortedAll.length - 1 ? sortedAll[idx + 1] : undefined;
 const {
 	data: { coverImage, description, ogImage, publishDate, title, updatedDate, tags, draft },
-	id: slug,
 } = post;
-const socialImage = ogImage ?? `/og-image/${slug}.png`;
+const socialImage = ogImage ?? postOgImage(post);
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
 const { remarkPluginFrontmatter } = await render(post);
 
 const authorName = siteConfig.profile?.name ?? siteConfig.author;
 const comments = siteConfig.comments;
-const postUrl = absoluteUrl(`/posts/${slug}/`, Astro.site);
+const postUrl = absoluteUrl(postPath(post), Astro.site);
 const socialImageAbsolute = absoluteUrl(socialImage, Astro.site);
 
 // "Posts · Month YYYY"
@@ -77,7 +87,7 @@ const giscusThemes = import.meta.env.PROD
 		<div class="post-main" data-pagefind-body>
 			<div id="blog-hero" class="post-header">
 				<div class="post-eyebrow">
-					Posts <span class="sep">·</span> {eyebrowDate}
+					{isStudy ? <a href={withBase("/study/")}>Study with me · Note {noteNumber}</a> : "Posts"} <span class="sep">·</span> {eyebrowDate}
 				</div>
 				{draft && <span class="draft-flag">(Draft)</span>}
 				<h1 class="post-title">{title}</h1>
@@ -88,7 +98,7 @@ const giscusThemes = import.meta.env.PROD
 						</>
 					)}
 				</p>
-				{!!tags?.length && (
+				{!isStudy && !!tags?.length && (
 					<div class="post-tags">
 						{tags.map((tag, i) => (
 							<><a class="tag-link" data-pagefind-filter="tag" href={withBase(`/tags/${encodeURIComponent(tag)}/`)}>{tag}</a>{i < tags.length - 1 && <span class="sep">·</span>}</>
@@ -133,13 +143,13 @@ const giscusThemes = import.meta.env.PROD
 			{(olderPost || newerPost) && (
 				<nav class="post-pager" aria-label="More posts">
 					{olderPost && (
-						<a class="pager-link prev" data-astro-prefetch href={withBase(`/posts/${olderPost.id}/`)}>
+						<a class="pager-link prev" data-astro-prefetch href={withBase(postPath(olderPost))}>
 							<span class="pager-eyebrow">Older</span>
 							<span class="pager-title">{olderPost.data.title}</span>
 						</a>
 					)}
 					{newerPost && (
-						<a class="pager-link next" data-astro-prefetch href={withBase(`/posts/${newerPost.id}/`)}>
+						<a class="pager-link next" data-astro-prefetch href={withBase(postPath(newerPost))}>
 							<span class="pager-eyebrow">Newer</span>
 							<span class="pager-title">{newerPost.data.title}</span>
 						</a>

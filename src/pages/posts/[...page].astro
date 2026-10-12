@@ -1,19 +1,18 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import PostList from "@/components/blog/PostList.astro";
-import { getAllPosts, sortMDByDate } from "@/data/post";
+import WritingFilter from "@/components/blog/WritingFilter.astro";
+import { getAllWriting, type PostEntry } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import type { GetStaticPaths, Page } from "astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const MAX_POSTS_PER_PAGE = 1000;
-	const allPosts = await getAllPosts();
-	const allPostsByDate = sortMDByDate(allPosts);
-	return paginate(allPostsByDate, { pageSize: MAX_POSTS_PER_PAGE });
+	// Work stories and study notes together; the chips filter by kind.
+	return paginate(await getAllWriting(), { pageSize: MAX_POSTS_PER_PAGE });
 }) satisfies GetStaticPaths;
 
 interface Props {
-	page: Page<CollectionEntry<"post">>;
+	page: Page<PostEntry>;
 }
 
 const { page } = Astro.props;
@@ -44,6 +43,7 @@ const totalCount = page.total;
 <PageLayout meta={meta}>
 	<section class="writing" aria-labelledby="writing-label">
 		<div class="section-label" id="writing-label">Writing · {totalCount} posts</div>
+		<WritingFilter />
 		<div class="timeline">
 			<PostList posts={page.data} />
 		</div>

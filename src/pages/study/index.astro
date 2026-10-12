@@ -1,0 +1,65 @@
+---
+import PostList from "@/components/blog/PostList.astro";
+import { getStudyNotesInOrder } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+
+// In the order written, so a newcomer starts at note 1.
+const posts = await getStudyNotesInOrder();
+
+const meta = {
+	description:
+		"I'm learning how real systems work and why they break. Study with me: each note uses everyday pictures and comes with a hands-on lesson.",
+	title: "Study with me",
+};
+---
+
+<PageLayout meta={meta}>
+	<section class="intro">
+		<h1>Study with me</h1>
+		<p>
+			I'm learning how real systems work and why they break. These are my notes, explained with
+			everyday pictures instead of jargon. Each one comes with a free, hands-on lesson at
+			<a href="https://learn.taewoo.me/?utm_source=blog&utm_content=study">learn.taewoo.me</a> where
+			you can watch it happen.
+		</p>
+	</section>
+	<section class="writing" aria-labelledby="study-label">
+		<div class="section-label" id="study-label">
+			{posts.length} {posts.length === 1 ? "note" : "notes"}
+		</div>
+		<div class="timeline">
+			<PostList posts={posts} />
+		</div>
+	</section>
+</PageLayout>
+
+<style>
+	.intro {
+		margin-bottom: 56px;
+	}
+	.intro h1 {
+		font-size: 30px;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		margin: 0 0 16px;
+	}
+	.intro p {
+		font-size: 18px;
+		line-height: 1.65;
+		margin: 0;
+		max-width: 60ch;
+		text-wrap: pretty;
+	}
+	.intro a {
+		text-decoration: underline;
+		text-decoration-color: hsl(var(--theme-text) / 0.35);
+		text-underline-offset: 3px;
+	}
+	.intro a:hover {
+		color: hsl(var(--theme-accent));
+		text-decoration-color: hsl(var(--theme-accent));
+	}
+	.writing {
+		margin-bottom: 96px;
+	}
+</style>
