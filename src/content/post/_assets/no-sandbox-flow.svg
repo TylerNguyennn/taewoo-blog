@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="640" height="560" fill="#ffffff"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Step 1 -->
+  <rect x="60" y="24" width="400" height="84" rx="12" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="84" y="58" font-size="20" font-weight="700" fill="#1e1b4b">1. Read the docs</text>
+  <text x="84" y="86" font-size="16" fill="#334155">Treat them as a draft, not the truth</text>
+
+  <line x1="260" y1="108" x2="260" y2="140" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Step 2 -->
+  <rect x="60" y="144" width="400" height="84" rx="12" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="84" y="178" font-size="20" font-weight="700" fill="#1e1b4b">2. Build a simulator</text>
+  <text x="84" y="206" font-size="16" fill="#334155">Fake provider: responses + webhooks</text>
+
+  <line x1="260" y1="228" x2="260" y2="260" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Step 3 -->
+  <rect x="60" y="264" width="400" height="84" rx="12" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <text x="84" y="298" font-size="20" font-weight="700" fill="#431407">3. Tiny real payment</text>
+  <text x="84" y="326" font-size="16" fill="#334155">Production, smallest amount, our own account</text>
+
+  <line x1="260" y1="348" x2="260" y2="380" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Step 4 -->
+  <rect x="60" y="384" width="400" height="84" rx="12" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <text x="84" y="418" font-size="20" font-weight="700" fill="#431407">4. Compare with the logs</text>
+  <text x="84" y="446" font-size="16" fill="#334155">Params, response, webhook: what differed?</text>
+
+  <!-- Loop back -->
+  <path d="M460,426 L560,426 L560,186 L466,186" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+  <text x="572" y="290" font-size="15" font-weight="700" fill="#dc2626">different?</text>
+  <text x="572" y="310" font-size="15" fill="#dc2626">fix code,</text>
+  <text x="572" y="330" font-size="15" fill="#dc2626">update</text>
+  <text x="572" y="350" font-size="15" fill="#dc2626">simulator</text>
+
+  <line x1="260" y1="468" x2="260" y2="500" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Step 5 -->
+  <rect x="60" y="504" width="400" height="48" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  <text x="84" y="535" font-size="18" font-weight="700" fill="#064e3b">5. Same everywhere → open to customers</text>
+</svg>
