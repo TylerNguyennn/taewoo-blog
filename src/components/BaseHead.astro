@@ -72,7 +72,7 @@ const goatcounter = analytics?.goatcounterUrl;
 <meta content={description} property="twitter:description"/>
 <meta content={socialImageURL} property="twitter:image"/>
 
-{/* Product analytics (PostHog, same project as learn.taewoo.me). No cookies (memory only), respects Do Not Track, sent via /ingest (netlify.toml). */}
+{/* Product analytics (PostHog, same project as learn.taewoo.me). No cookies (memory only), respects Do Not Track, sent via /ingest (vercel.json). */}
 {
     import.meta.env.PROD && (
     <script is:inline>
