@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 320" role="img" aria-labelledby="t d">
+  <title id="t">AI-assisted payment integration workflow</title>
+  <desc id="d">Five steps from left to right. 1, me: write the script, the goals and the risks ranked low, medium and high. 2, Claude Code: build fixtures from the sandbox or from the docs. 3, Claude Code: build the high-risk logic first, follow conventions for the rest, and pass every goal. 4, a fresh agent: review with only the diff and the goals. 5, me: check the risk map and re-test the API with the exported JSON. A return arrow from review back to build shows the loop when something fails.</desc>
+  <style>
+    .box{fill:#ffffff;stroke:#0e6e55;stroke-width:2}
+    .me{fill:#e3f1ec;stroke:#0e6e55;stroke-width:2}
+    .new{fill:#fdf3e1;stroke:#a16f0b;stroke-width:2}
+    .t{font:600 14px -apple-system,Helvetica,Arial,sans-serif;fill:#17201c}
+    .s{font:12px -apple-system,Helvetica,Arial,sans-serif;fill:#3d4a44}
+    .who{font:600 10px ui-monospace,Menlo,monospace;fill:#0e6e55;letter-spacing:1px}
+    .whon{font:600 10px ui-monospace,Menlo,monospace;fill:#a16f0b;letter-spacing:1px}
+    .a{stroke:#5b6862;stroke-width:2;fill:none;marker-end:url(#h)}
+  </style>
+  <defs><marker id="h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5b6862"/></marker></defs>
+
+  <rect class="me" x="8" y="60" width="138" height="150" rx="10"/>
+  <text class="who" x="20" y="82">ME</text>
+  <text class="t" x="20" y="106">1. Script</text>
+  <text class="s" x="20" y="130">Scenarios, goals,</text>
+  <text class="s" x="20" y="148">risks ranked low /</text>
+  <text class="s" x="20" y="166">medium / high</text>
+
+  <rect class="box" x="164" y="60" width="138" height="150" rx="10"/>
+  <text class="who" x="176" y="82">CLAUDE CODE</text>
+  <text class="t" x="176" y="106">2. Fixtures</text>
+  <text class="s" x="176" y="130">Real JSON from the</text>
+  <text class="s" x="176" y="148">sandbox, or built</text>
+  <text class="s" x="176" y="166">from the docs</text>
+
+  <rect class="box" x="320" y="60" width="138" height="150" rx="10"/>
+  <text class="who" x="332" y="82">CLAUDE CODE</text>
+  <text class="t" x="332" y="106">3. Build</text>
+  <text class="s" x="332" y="130">High-risk logic first,</text>
+  <text class="s" x="332" y="148">conventions for the</text>
+  <text class="s" x="332" y="166">rest, pass every goal</text>
+
+  <rect class="new" x="476" y="60" width="138" height="150" rx="10"/>
+  <text class="whon" x="488" y="82">FRESH AGENT</text>
+  <text class="t" x="488" y="106">4. Review</text>
+  <text class="s" x="488" y="130">Sees only the diff</text>
+  <text class="s" x="488" y="148">and the goals, not</text>
+  <text class="s" x="488" y="166">the build session</text>
+
+  <rect class="me" x="632" y="60" width="140" height="150" rx="10"/>
+  <text class="who" x="644" y="82">ME</text>
+  <text class="t" x="644" y="106">5. Check</text>
+  <text class="s" x="644" y="130">Risk map of the</text>
+  <text class="s" x="644" y="148">critical code, JSON</text>
+  <text class="s" x="644" y="166">to re-test the API</text>
+
+  <path class="a" d="M146 135H162"/>
+  <path class="a" d="M302 135H318"/>
+  <path class="a" d="M458 135H474"/>
+  <path class="a" d="M614 135H630"/>
+  <path class="a" d="M545 212C545 270 389 270 389 214"/>
+  <text class="s" x="402" y="290">something fails? back to build</text>
+</svg>
